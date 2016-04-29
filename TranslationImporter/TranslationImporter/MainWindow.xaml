@@ -1,0 +1,181 @@
+﻿<Window x:Class="TranslationImporter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TranslationImporter"
+        Title="MainWindow" SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <Style x:Key="LayoutGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Background" Value="White" />
+        </Style>
+        <Style x:Key="UploadFile" TargetType="TextBox">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0, 0, 5, 0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontStyle" Value="Italic" />
+            <Setter Property="Background" Value="Beige" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="FileMessage" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0, 2, 0, 2" />
+        </Style>
+        <Style x:Key="ResultMessage" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Padding" Value="0, 0, 5, 0" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style x:Key="Button" TargetType="Button">
+            <Setter Property="Padding" Value="5, 3, 5, 3" />
+        </Style>
+        <Style x:Key="UploadButton" TargetType="Button">
+            <Setter Property="Margin" Value="0, 5, 0, 5" />
+        </Style>
+        <Style x:Key="ImportButton" BasedOn="{StaticResource Button}" TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0, 5, 0, 5" />
+        </Style>
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextDecorations" Value="Underline" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Padding" Value="0, 5, 0, 5" />
+        </Style>
+        <Style x:Key="SettingsControl" TargetType="{x:Type Control}">
+            <Setter Property="Height" Value="28" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="SettingsContent" BasedOn="{StaticResource SettingsControl}" TargetType="{x:Type Control}">
+            <Setter Property="Margin" Value="0, 5, 5, 5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="SettingsText" BasedOn="{StaticResource SettingsControl}" TargetType="Label">
+            <Setter Property="Margin" Value="5, 5, 0, 5" />
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="LayoutRoot"
+          Style="{StaticResource LayoutGrid}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="520"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="Browsing" Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="tbExcelFile" Grid.Row="0" Grid.Column="0"
+                     Style="{StaticResource UploadFile}"
+                     Text="{x:Static local:AppResources.ExcelFileTextboxPlaceholder}"
+                     GotKeyboardFocus="tbExcelFile_GotKeyboardFocus"
+                     LostKeyboardFocus="tbExcelFile_LostKeyboardFocus" />
+            <Button x:Name="btnBrowseExcel" Grid.Row="0" Grid.Column="1"
+                    Style="{StaticResource UploadButton}"
+                    Content="Browse"
+                    Click="btnBrowseExcel_Click" />
+            <TextBlock x:Name="lblExcelMessage" Grid.Row="1" Grid.ColumnSpan="2"
+                       Style="{StaticResource FileMessage}"
+                       Height="0"></TextBlock>
+            <TextBox x:Name="tbResxFile" Grid.Row="2" Grid.Column="0"
+                     Style="{StaticResource UploadFile}"                   
+                     Text="{x:Static local:AppResources.ResourceFileTextboxPlaceholder}"
+                     GotKeyboardFocus="tbResxFile_GotKeyboardFocus"
+                     LostKeyboardFocus="tbResxFile_LostKeyboardFocus" />
+            <Button x:Name="btnBrowseResx" Grid.Row="2" Grid.Column="1"
+                    Style="{StaticResource UploadButton}"
+                    Content="Browse"
+                    Click="btnBrowseResx_Click" />
+            <TextBlock x:Name="lblResourceMessage" Grid.Row="3" Grid.ColumnSpan="2"
+                       Style="{StaticResource FileMessage}"
+                       Height="0" />
+            <Button x:Name="btnImport" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                    Style="{StaticResource ImportButton}"
+                    Content="Import"
+        	        Click="btnImport_Click" />
+        </Grid>
+        <Grid x:Name="gridMessage" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="lblMessage" Grid.Row="0" Grid.Column="0"
+                       Style="{StaticResource ResultMessage}">
+            </TextBlock>
+            <!--<TextBlock x:Name="lbShowStats" Grid.Row="0" Grid.Column="1"
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Visibility="Hidden">                                
+                <Hyperlink Click="lbShowStats_Click">Show Results</Hyperlink>
+            </TextBlock>-->
+        </Grid>
+        <Grid x:Name="Settings" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                       Style="{StaticResource Title}">
+                Settings
+            </TextBlock>
+            <Label Grid.Row="1" Grid.Column="0"
+                   Style="{StaticResource SettingsText}"
+                   Content="Worksheet Index (One-Based):"
+                   ToolTip="The one-based index of the worksheet your translations are on. 1 = first worksheet, 2 = second worksheet, etc." />
+            <TextBox x:Name="tbWorksheetIndex" Grid.Row="1" Grid.Column="1"
+                     Style="{StaticResource SettingsContent}"
+                     Text="1"
+                     PreviewTextInput="tbWorksheetIndex_PreviewTextInput" />
+            <Label Content="Skip First Row?" Grid.Row="1" Grid.Column="2"
+                   Style="{StaticResource SettingsText}"
+                   ToolTip="If you don't want the first row to be imported for any reason, choose yes." />
+            <ComboBox x:Name="cbSkipFirstRow" Grid.Row="1" Grid.Column="3"
+                      Style="{StaticResource SettingsContent}"
+                      SelectedIndex="0">
+                <ComboBoxItem Content="Yes"/>
+                <ComboBoxItem Content="No"/>
+            </ComboBox>
+            <Label Content="Data Label Column:" Grid.Row="2" Grid.Column="0"
+                   Style="{StaticResource SettingsText}"
+                   ToolTip="The column containing the IDs of the controls being translated." />
+            <TextBox x:Name="tbDataLabelColumn" Grid.Row="2" Grid.Column="1"
+                     Style="{StaticResource SettingsContent}"
+                     Text="A"
+                     CharacterCasing="Upper"
+                     PreviewTextInput="tbDataLabelColumn_PreviewTextInput" />
+            <Label Content="Translated Text Column:" Grid.Row="2" Grid.Column="2"
+                   Style="{StaticResource SettingsText}"
+                   ToolTip="The column containing the translated text." />
+            <TextBox x:Name="tbTranslatedTextColumn" Grid.Row="2" Grid.Column="3"
+                     Style="{StaticResource SettingsContent}"
+                     Text="B"
+                     CharacterCasing="Upper"
+                     PreviewTextInput="tbTranslatedTextColumn_PreviewTextInput" />
+        </Grid>
+    </Grid>
+</Window>

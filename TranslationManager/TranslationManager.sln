@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationImporter", "TranslationImporter\TranslationImporter.csproj", "{C21212DA-9F0D-4E50-BA6E-DC69BE4D506E}"
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationManager", "TranslationManager\TranslationManager.csproj", "{C21212DA-9F0D-4E50-BA6E-DC69BE4D506E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
